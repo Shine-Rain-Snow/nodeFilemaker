@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><%= title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="/js/jquery.min.js?<%= timestamp %>"></script>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css?<%= timestamp %>"/>
+    <script src="/js/bootstrap.min.js?<%= timestamp %>"></script>
+
+    <link rel="stylesheet" href="/stylesheets/main.css?<%= timestamp %>">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#"><%= customerName %></a>
+
+            <div class="payment-btn">
+
+
+                <form method="post" action="/invoice/charge">
+                    <script src="https://checkout.stripe.com/checkout.js"
+                            class="stripe-button"
+                            data-key="<%= stripeKey %>"
+                            data-name="Test"
+                            data-description="Pay to <%= businessName %>"
+                            data-amount="<%= totalAmount %>"
+                            data-locale="auto"
+                            data-label=" Pay by Credit Card*"
+                            data-currency="<%= currency %>"
+                    >
+                    </script>
+                    <input type="hidden" name="chargeAmount" value="<%= totalAmount %>">
+                    <input type="hidden" name="customerId" value="<%= customerId %>">
+                    <input type="hidden" name="invoiceId" value="<%= invoiceId %>">
+                    <input type="hidden" name="stripeFees" value="<%= stripeFees %>">
+                </form>
+            </div>
+            <div class="payment-btn" style="padding-right: 6px;">
+
+                <button data-toggle="modal" data-target="#myModal" class=" stripe-button-el">
+                    <span style="display: block; min-height: 30px;">Pay by Bank Transfer</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="main-container">
+    <div class="container-fluid">
+        <div id="stripeFees" class="text-right">
+            <strong>*Payment by credit card will incur
+                <span style="color: red">A$<%= stripeFees.toFixed(2) %>
+                </span>
+                Fee.</strong>
+        </div>
+    </div>
+    <div class="container">
+        <iframe src="<%= pdfUrl %>" class="pane-vScroll" style="width: 100%;"></iframe>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Bank Account Details</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                Bank Name:
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                <%= bankName %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                Bank BSB:
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                <%= bsb %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                Bank Account:
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                <%= accountNumber %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                Bank Account Name:
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                <%= accountName %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-md-6">
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                Reference No.:
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6">
+                                <%= invoiceDocNumber %>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="footer">
+    <p>Copyright © 2019 Evergreen Blades. All Rights Reserved.</p>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function setHeight() {
+            windowHeight = $(window).height() - 130;
+            $('.pane-vScroll').css('height', windowHeight);
+        };
+        setHeight();
+        $(window).resize(function () {
+            setHeight();
+        });
+    });
+</script>
+</body>
+</html>

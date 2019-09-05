@@ -1,0 +1,41 @@
+body{}
+
+.navbar-inverse{
+    background-color: #36c157;
+    border-radius: 0px;
+    border-color: #36c157;
+}
+.navbar-inverse .navbar-brand{
+    color: #ffffff;
+}
+.navbar-inverse .navbar-nav>li>a{
+    color: #ffffff; 
+}
+.main-container{
+    padding: 50px 0px;
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:#36c157;
+   color: white;
+   text-align: center;
+}
+.footer p{
+    margin: 10px;
+}
+.payment-btn{
+    position: relative;
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.navbar-header {
+    float: none !important;
+}
